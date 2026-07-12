@@ -1,5 +1,5 @@
 /* Iron Log — офлайн-кэш. Меняй CACHE при обновлении файлов. */
-var CACHE = "ironlog-v31-2";
+var CACHE = "ironlog-v31-3";
 var FILES = ["./", "./index.html", "./app.js", "./storage.js", "./tailwind.css",
              "./manifest.json", "./icon-192.png", "./icon-512.png"];
 
