@@ -52,8 +52,21 @@
   if (b) b.remove();
 
   if ("serviceWorker" in navigator) {
+    // был ли SW до этого — чтобы не перезагружать страницу при первой установке
+    var hadSW = !!navigator.serviceWorker.controller;
+    var reloading = false;
+
+    // новая версия перехватила страницу — перезагружаемся один раз, сами
+    navigator.serviceWorker.addEventListener("controllerchange", function () {
+      if (!hadSW || reloading) return;
+      reloading = true;
+      location.reload();
+    });
+
     window.addEventListener("load", function () {
-      navigator.serviceWorker.register("sw.js").catch(function () {});
+      navigator.serviceWorker.register("sw.js").then(function (reg) {
+        reg.update();                       // при каждом запуске проверять обновление
+      }).catch(function () {});
     });
   }
 </script>
